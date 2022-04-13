@@ -236,9 +236,7 @@ export default function MainNavigator() {
           name="ChatScreen"
           component={ChatScreen}
           options={{
-            headerTitle: (props) => <ChatHeader {...props} />,
-            headerBackTitle: "",
-            headerStyle: { backgroundColor: "#202020" },
+            header: (props) => <ChatHeader {...props} />,
           }}
         />
       </Stack.Navigator>

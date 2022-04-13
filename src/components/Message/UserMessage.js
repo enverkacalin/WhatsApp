@@ -45,12 +45,17 @@ const UserMessage = ({ navigation }) => {
         data={Data}
         keyExtractor={(item) => item.id}
         ListHeaderComponent={ListHeader}
-        renderItem={({ item }) => (
+        renderItem={({ item, index }) => (
           <View>
             <TouchableHighlight
               activeOpacity={0.6}
               underlayColor="#303030"
-              onPress={() => navigation.navigate("ChatScreen")}>
+              onPress={() =>
+                navigation.navigate("ChatScreen", {
+                  name: Data[index].name,
+                  message: Data[index].message,
+                })
+              }>
               <View style={styles.textmessage}>
                 <Image source={require("../../assets/image/user.png")} style={styles.user} />
                 <View>

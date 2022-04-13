@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  Text,
   ScrollView,
   View,
   StyleSheet,
@@ -12,18 +11,20 @@ import {
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { SimpleLineIcons } from "@expo/vector-icons";
+import { useHeaderHeight } from "@react-navigation/elements";
+import MessageHome from "./MessageHome";
 
-const ChatScreen = () => {
+const ChatScreen = ({ route }) => {
+  const headerHeight = useHeaderHeight();
+  const { name, message } = route.params;
   return (
     <KeyboardAvoidingView
-      behavior="padding"
       style={{ flex: 1, backgroundColor: "#151515" }}
-      keyboardVerticalOffset={65}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      keyboardVerticalOffset={headerHeight}
       contentContainerStyle={{ backgroundColor: "black" }}>
       <ScrollView>
-        <View>
-          <Text></Text>
-        </View>
+        <MessageHome name={name} message={message} />
       </ScrollView>
 
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>

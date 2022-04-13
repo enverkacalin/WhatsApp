@@ -22,9 +22,10 @@ module.exports = {
     "react/no-unescaped-entities": ["error", { forbid: [">", "}"] }],
     "arrow-body-style": "off",
     "prefer-arrow-callback": "off",
-    "linebreak-style": ["error", "unix"],
+    "linebreak-style": [0],
     quotes: ["error", "double"],
     semi: ["error", "always"],
     "react/prop-types": [0],
+    "no-undef": [0],
   },
 };
