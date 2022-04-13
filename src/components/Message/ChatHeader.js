@@ -31,7 +31,9 @@ const ChatHeader = ({ route, navigation }) => {
         </View>
 
         <View style={{ flexDirection: "row", alignItems: "center", paddingRight: 10 }}>
-          <TouchableOpacity style={{ marginHorizontal: 10 }}>
+          <TouchableOpacity
+            style={{ marginHorizontal: 10 }}
+            onPress={() => navigation.navigate("VideoCall")}>
             <AntDesign name="videocamera" size={25} color="#007AFF" />
           </TouchableOpacity>
           <TouchableOpacity style={{ marginHorizontal: 10 }}>

@@ -22,6 +22,7 @@ import ChatHeader from "../components/Message/ChatHeader.js";
 import Privacy from "../screen/Privacy";
 import NewMessage from "../components/Message/NewMessage.js";
 import NewMessageHeader from "../components/Message/NewMessageHeader";
+import VideoCall from "../components/Message/VideoCall";
 
 const SettingsStack = createNativeStackNavigator();
 
@@ -239,6 +240,7 @@ export default function MainNavigator() {
             header: (props) => <ChatHeader {...props} />,
           }}
         />
+        <Stack.Screen name="VideoCall" component={VideoCall} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
   );
