@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, TouchableOpacity, ImageBackground, Vibration } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, Vibration } from "react-native";
 import { Camera } from "expo-camera";
 import { Ionicons } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 function VideoCall({ navigation }) {
   const [hasPermission, setHasPermission] = useState(null);
@@ -35,33 +37,66 @@ function VideoCall({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <ImageBackground source={require("../../assets/image/user.png")} style={{ flex: 1 }}>
-        <View style={styles.imagecontainer}>
-          <Camera style={{ height: 150, width: 100 }} type={type} />
-        </View>
-        <View style={styles.camera}>
-          <View style={styles.exitContainer}>
+      <Camera style={{ flex: 1 }} type={type}>
+        <View style={{ flex: 1, backgroundColor: "rgba(0,0,0, 0.3)" }}>
+          <View style={styles.textcontainer}>
             <TouchableOpacity
+              style={{ alignSelf: "flex-start", marginHorizontal: 10 }}
               onPress={() => {
                 navigation.goBack(), Vibration.vibrate();
               }}>
-              <MaterialIcons name="call-end" style={styles.exitIcon} />
+              <AntDesign name="left" size={30} color="white" />
             </TouchableOpacity>
+            <View style={{ alignSelf: "center" }}>
+              <Text style={styles.call}></Text>
+              <Text style={{ color: "white", fontSize: 18 }}>+90 000 000 00 00 aranıyor...</Text>
+            </View>
           </View>
-          <View style={styles.cameraContainer}>
-            <TouchableOpacity
-              onPress={() => {
-                setType(
-                  type === Camera.Constants.Type.back
-                    ? Camera.Constants.Type.front
-                    : Camera.Constants.Type.back
-                );
-              }}>
-              <Ionicons name="ios-camera-reverse-outline" style={styles.cameraicon} />
+          <View
+            style={{
+              backgroundColor: "#252525",
+              borderTopEndRadius: 20,
+              borderTopStartRadius: 20,
+            }}>
+            <TouchableOpacity style={{ alignSelf: "center", marginBottom: 5 }}>
+              <Ionicons name="md-chevron-up-outline" size={40} color="#353535" />
             </TouchableOpacity>
+
+            <View style={styles.callhome}>
+              <View style={styles.cameracontainer}>
+                <TouchableOpacity
+                  onPress={() => {
+                    setType(
+                      type === Camera.Constants.Type.back
+                        ? Camera.Constants.Type.front
+                        : Camera.Constants.Type.back
+                    );
+                  }}>
+                  <Ionicons name="camera-reverse" style={styles.exitIcon} />
+                </TouchableOpacity>
+              </View>
+              <View style={styles.cameracontainer}>
+                <TouchableOpacity>
+                  <MaterialCommunityIcons name="video-off" style={styles.exitIcon} />
+                </TouchableOpacity>
+              </View>
+              <View style={styles.cameracontainer}>
+                <TouchableOpacity>
+                  <MaterialCommunityIcons name="microphone-off" style={styles.exitIcon} />
+                </TouchableOpacity>
+              </View>
+              <View style={styles.exitContainer}>
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.goBack(), Vibration.vibrate();
+                  }}>
+                  <MaterialIcons name="call-end" style={styles.exitIcon} />
+                </TouchableOpacity>
+              </View>
+            </View>
           </View>
         </View>
-      </ImageBackground>
+      </Camera>
     </View>
   );
 }
@@ -69,40 +104,45 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  imagecontainer: {
+  call: {
+    fontSize: 30,
+    fontStyle: "italic",
+    color: "white",
+    fontWeight: "bold",
+    alignSelf: "center",
+    marginHorizontal: 40,
+  },
+  textcontainer: {
+    flexDirection: "column",
     flex: 1,
-    alignItems: "flex-end",
     marginVertical: 40,
     marginRight: 20,
   },
-  camera: {
-    flexDirection: "column",
-    justifyContent: "flex-end",
+  callhome: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    marginHorizontal: 15,
+    marginBottom: 35,
   },
   exitContainer: {
-    alignSelf: "center",
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "red",
-    height: 70,
-    width: 70,
-    borderRadius: 100,
+    height: 55,
+    width: 55,
+    borderRadius: 55,
   },
-  cameraContainer: {
-    backgroundColor: "transparent",
-    marginBottom: 20,
-    alignSelf: "flex-end",
+  cameracontainer: {
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#404040",
+    height: 55,
+    width: 55,
+    borderRadius: 55,
   },
   exitIcon: {
     fontSize: 30,
     color: "white",
-  },
-
-  cameraicon: {
-    fontSize: 40,
-    color: "white",
-    marginBottom: 20,
-    marginHorizontal: 30,
   },
 });
 

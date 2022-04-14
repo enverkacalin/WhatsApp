@@ -63,7 +63,7 @@ const NewHeader = () => {
   );
 };
 
-const NewMessage = ({ navigation }) => {
+const NewMessage = () => {
   return (
     <View style={{ flex: 1, backgroundColor: "#181818" }}>
       <View style={{ backgroundColor: "#282828" }}>
@@ -80,7 +80,7 @@ const NewMessage = ({ navigation }) => {
                 style={styles.textmessage}
                 activeOpacity={0.6}
                 underlayColor="#303030"
-                onPress={() => navigation.navigate("ChatScreen")}>
+                onPress={() => console.log("")}>
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
                   <Image source={require("../../assets/image/user.png")} style={styles.user} />
                   <View>
