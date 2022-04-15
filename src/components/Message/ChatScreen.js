@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  ScrollView,
   View,
   StyleSheet,
   KeyboardAvoidingView,
@@ -16,16 +15,20 @@ import MessageHome from "./MessageHome";
 
 const ChatScreen = ({ route }) => {
   const headerHeight = useHeaderHeight();
-  const { name, message } = route.params;
+
   return (
     <KeyboardAvoidingView
-      style={{ flex: 1, backgroundColor: "#151515" }}
+      style={{
+        flex: 1,
+        backgroundColor: "#151515",
+        flexDirection: "column",
+      }}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       keyboardVerticalOffset={headerHeight}
       contentContainerStyle={{ backgroundColor: "black" }}>
-      <ScrollView>
-        <MessageHome name={name} message={message} />
-      </ScrollView>
+      <View style={{ flex: 1 }}>
+        <MessageHome messageItem={route.params.item} />
+      </View>
 
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={styles.container}>
@@ -51,10 +54,10 @@ const ChatScreen = ({ route }) => {
 
 const styles = StyleSheet.create({
   container: {
-    justifyContent: "flex-end",
     backgroundColor: "#252525",
     borderTopWidth: StyleSheet.hairlineWidth,
     borderTopColor: "#404040",
+    marginBottom: "auto",
   },
   input: {
     flex: 1,

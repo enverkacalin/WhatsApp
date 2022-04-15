@@ -1,7 +1,8 @@
-import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
+import React, { useEffect, useRef } from "react";
+import { View, Text, StyleSheet, TouchableOpacity, Alert, FlatList } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
+import { MESSAGE_STATUS } from "./Data";
 
 const MessageAlert = () => {
   Alert.alert(
@@ -18,9 +19,9 @@ const MessageAlert = () => {
   );
 };
 
-const MessageHome = ({ name, message }) => {
+const MessageHomeHeader = () => {
   return (
-    <View style={styles.container}>
+    <View>
       <View style={styles.date}>
         <Text style={{ color: "#808080", fontWeight: "600", padding: 5 }}>10 Ocak Pzt</Text>
       </View>
@@ -31,32 +32,49 @@ const MessageHome = ({ name, message }) => {
           aramalarınızı okuyamaz ve dinleyemez. Daha fazla bilgi edinmek için dokunun.
         </Text>
       </TouchableOpacity>
-      <View style={{ flexDirection: "column" }}>
-        <View style={styles.usermessage}>
-          <Text style={styles.text}>{name} </Text>
-          <Text
-            style={{
-              color: "#9e9e9e",
-              fontSize: 13,
-              justifyContent: "flex-end",
-              alignSelf: "flex-end",
-            }}>
-            19:07 <Ionicons name="ios-checkmark-done" size={20} color="#007AFF" />
-          </Text>
-        </View>
-        <View style={styles.message}>
-          <Text style={styles.text}>{message} </Text>
-          <Text
-            style={{
-              color: "#9e9e9e",
-              fontSize: 13,
-              justifyContent: "flex-end",
-              alignSelf: "flex-end",
-            }}>
-            19:07
-          </Text>
-        </View>
-      </View>
+    </View>
+  );
+};
+
+const Message = ({ item }) => {
+  return (
+    <View style={item.isSelf === true ? styles.usermessage : styles.message}>
+      <Text style={styles.text}>{item.text} </Text>
+      <Text
+        style={{
+          color: "#9e9e9e",
+          fontSize: 13,
+          justifyContent: "flex-end",
+          alignSelf: "flex-end",
+        }}>
+        {item.time}{" "}
+        {item.isSelf === true ? (
+          <Ionicons
+            name={item.status === MESSAGE_STATUS.FORWADED ? "ios-checkmark" : "ios-checkmark-done"}
+            size={20}
+            color={item.status === MESSAGE_STATUS.SEEN ? "#007AFF" : "#9e9e9e"}
+          />
+        ) : null}
+      </Text>
+    </View>
+  );
+};
+
+const MessageHome = ({ messageItem }) => {
+  const flatlistRef = useRef();
+
+  useEffect(() => {
+    flatlistRef.current.scrollToEnd({ animated: false });
+  }, [flatlistRef.current]);
+  return (
+    <View style={{ flex: 1 }}>
+      <FlatList
+        ref={flatlistRef}
+        data={messageItem.messages}
+        ListHeaderComponent={MessageHomeHeader}
+        keyExtractor={(_item, index) => index.toString()}
+        renderItem={({ item }) => <Message item={item} />}
+      />
     </View>
   );
 };
@@ -66,24 +84,24 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     backgroundColor: "#303030",
     borderRadius: 5,
-    margin: 10,
+    margin: 5,
   },
   alertmessage: {
     backgroundColor: "#191919",
     marginHorizontal: 40,
     marginTop: 10,
-    padding: 15,
+    marginBottom: 10,
+    padding: 10,
     borderRadius: 10,
   },
   usermessage: {
-    marginRight: 15,
-    marginLeft: 35,
+    marginHorizontal: 15,
     backgroundColor: "#005446",
     padding: 7,
     flexDirection: "row",
     alignSelf: "flex-end",
     borderRadius: 10,
-    marginVertical: 7,
+    marginVertical: 4,
   },
   message: {
     marginHorizontal: 15,
@@ -92,9 +110,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignSelf: "flex-start",
     borderRadius: 10,
-    marginVertical: 7,
+    marginVertical: 4,
   },
   text: {
+    width: 220,
     color: "white",
     fontSize: 17,
   },

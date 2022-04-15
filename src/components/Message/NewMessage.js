@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, FlatList, StyleSheet, TouchableHighlight, Image } from "react-native";
 import { SearchBar } from "react-native-elements";
-import Data from "./Data";
+import { DATA } from "./Data";
 import { MaterialIcons } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
 
@@ -63,15 +63,15 @@ const NewHeader = () => {
   );
 };
 
-const NewMessage = () => {
+const NewMessage = ({ navigation }) => {
   return (
     <View style={{ flex: 1, backgroundColor: "#181818" }}>
       <View style={{ backgroundColor: "#282828" }}>
         <NewSearch />
       </View>
       <FlatList
-        data={Data}
-        keyExtractor={(item) => item.id}
+        data={DATA}
+        keyExtractor={(item) => item}
         ListHeaderComponent={NewHeader}
         renderItem={({ item }) => (
           <View>
@@ -80,12 +80,20 @@ const NewMessage = () => {
                 style={styles.textmessage}
                 activeOpacity={0.6}
                 underlayColor="#303030"
-                onPress={() => console.log("")}>
+                onPress={() =>
+                  navigation.navigate(
+                    "ChatScreen",
+                    {
+                      item: item,
+                    },
+                    navigation.goBack()
+                  )
+                }>
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
                   <Image source={require("../../assets/image/user.png")} style={styles.user} />
                   <View>
-                    <Text style={styles.name}>{item.name}</Text>
-                    <Text style={styles.case}>{item.case}</Text>
+                    <Text style={styles.name}>{item.otherUser.userName}</Text>
+                    <Text style={styles.case}>{item.otherUser.case}</Text>
                   </View>
                 </View>
               </TouchableHighlight>

@@ -10,7 +10,7 @@ import {
   TouchableHighlight,
 } from "react-native";
 import Line from "../Line";
-import Data from "./Data";
+import { DATA } from "./Data";
 import Search from "../Search";
 import { Entypo } from "@expo/vector-icons";
 
@@ -42,25 +42,33 @@ const UserMessage = ({ navigation }) => {
         </TouchableOpacity>
       </View>
       <FlatList
-        data={Data}
-        keyExtractor={(item) => item.id}
+        data={DATA}
+        keyExtractor={(item) => item}
         ListHeaderComponent={ListHeader}
-        renderItem={({ item, index }) => (
+        renderItem={({ item }) => (
           <View>
             <TouchableHighlight
               activeOpacity={0.6}
               underlayColor="#303030"
               onPress={() =>
                 navigation.navigate("ChatScreen", {
-                  name: Data[index].name,
-                  message: Data[index].message,
+                  item: item,
                 })
               }>
               <View style={styles.textmessage}>
                 <Image source={require("../../assets/image/user.png")} style={styles.user} />
                 <View>
-                  <Text style={styles.name}>{item.name}</Text>
-                  <Text style={styles.message}>{item.message}</Text>
+                  <View style={{ flexDirection: "row", alignItems: "center" }}>
+                    <Text style={styles.name}>{item.otherUser.userName}</Text>
+                    <Text style={{ color: "#808080" }}>
+                      {item.messages[item.messages.length - 1].time}
+                    </Text>
+                  </View>
+                  <View>
+                    <Text style={styles.message}>
+                      {item.messages[item.messages.length - 1].text}
+                    </Text>
+                  </View>
                 </View>
               </View>
             </TouchableHighlight>
@@ -105,7 +113,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "flex-start",
     paddingLeft: 20,
-    paddingRight: 15,
+    paddingRight: 5,
     paddingTop: 10,
     paddingBottom: 10,
   },
@@ -116,11 +124,13 @@ const styles = StyleSheet.create({
     marginRight: 14,
   },
   name: {
+    flex: 1,
     color: "#fff",
     fontSize: 20,
     fontWeight: "bold",
   },
   message: {
+    width: 270,
     color: "#808080",
     fontSize: 15,
     marginTop: 5,
