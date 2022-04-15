@@ -5,16 +5,34 @@ import { Ionicons } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { Audio } from "expo-av";
 
-function VideoCall({ navigation }) {
+function VideoCall({ navigation, route }) {
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.front);
+  const [sound, setSound] = useState();
+  const { item } = route.params;
+
+  async function playSound() {
+    await Audio.setAudioModeAsync({
+      allowsRecordingIOS: false,
+      playsInSilentModeIOS: true,
+    });
+    const { sound } = await Audio.Sound.createAsync(require("../../assets/audio/callsound.mp3"));
+    setSound(sound);
+    await sound.playAsync();
+  }
+
+  async function stopSound() {
+    await sound.stopAsync();
+  }
 
   useEffect(() => {
     (async () => {
       const { status } = await Camera.requestCameraPermissionsAsync();
       setHasPermission(status === "granted");
     })();
+    playSound();
   }, []);
 
   if (hasPermission === null) {
@@ -38,18 +56,18 @@ function VideoCall({ navigation }) {
   return (
     <View style={styles.container}>
       <Camera style={{ flex: 1 }} type={type}>
-        <View style={{ flex: 1, backgroundColor: "rgba(0,0,0, 0.3)" }}>
+        <View style={{ flex: 1, backgroundColor: "rgba(0,0,0, 0.5)" }}>
           <View style={styles.textcontainer}>
             <TouchableOpacity
               style={{ alignSelf: "flex-start", marginHorizontal: 10 }}
               onPress={() => {
-                navigation.goBack(), Vibration.vibrate();
+                navigation.goBack(), Vibration.vibrate(), stopSound();
               }}>
               <AntDesign name="left" size={30} color="white" />
             </TouchableOpacity>
             <View style={{ alignSelf: "center" }}>
-              <Text style={styles.call}></Text>
-              <Text style={{ color: "white", fontSize: 18 }}>+90 000 000 00 00 aranıyor...</Text>
+              <Text style={styles.call}>{item.otherUser.userName}</Text>
+              <Text style={{ color: "white", fontSize: 17 }}>+90 000 000 00 00 aranıyor...</Text>
             </View>
           </View>
           <View
@@ -88,7 +106,7 @@ function VideoCall({ navigation }) {
               <View style={styles.exitContainer}>
                 <TouchableOpacity
                   onPress={() => {
-                    navigation.goBack(), Vibration.vibrate();
+                    navigation.goBack(), Vibration.vibrate(), stopSound();
                   }}>
                   <MaterialIcons name="call-end" style={styles.exitIcon} />
                 </TouchableOpacity>
@@ -105,12 +123,14 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   call: {
-    fontSize: 30,
+    fontSize: 28,
     fontStyle: "italic",
     color: "white",
     fontWeight: "bold",
     alignSelf: "center",
     marginHorizontal: 40,
+    marginTop: 15,
+    marginBottom: 7,
   },
   textcontainer: {
     flexDirection: "column",
