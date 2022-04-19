@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, View, Text } from "react-native";
 
-const Connected = () => {
+const Connected = ({ navigation }) => {
   return (
     <View
       style={{
@@ -30,7 +30,11 @@ const Connected = () => {
           borderRadius: 10,
           marginVertical: 20,
         }}>
-        <Button title="Cihaz Bağla" color={"#fff"} />
+        <Button
+          title="Cihaz Bağla"
+          color={"#fff"}
+          onPress={() => navigation.navigate("ConnectedDevice")}
+        />
       </View>
     </View>
   );

@@ -23,6 +23,8 @@ import Privacy from "../screen/Privacy";
 import NewMessage from "../components/Message/NewMessage.js";
 import NewMessageHeader from "../components/Message/NewMessageHeader";
 import VideoCall from "../components/Message/VideoCall";
+import ConnectedDevice from "../screen/ConnectedDevice";
+import ConnectedDeviceHeader from "../components/ConnectedDeviceHeader";
 
 const SettingsStack = createNativeStackNavigator();
 
@@ -94,6 +96,13 @@ const Settings = () => {
           headerStyle: { backgroundColor: "#151515" },
         }}
       />
+      <SettingsStack.Group screenOptions={{ presentation: "modal" }}>
+        <SettingsStack.Screen
+          name="ConnectedDevice"
+          component={ConnectedDevice}
+          options={{ header: (props) => <ConnectedDeviceHeader {...props} /> }}
+        />
+      </SettingsStack.Group>
     </SettingsStack.Navigator>
   );
 };
