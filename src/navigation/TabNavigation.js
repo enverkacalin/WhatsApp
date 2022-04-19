@@ -25,6 +25,9 @@ import NewMessageHeader from "../components/Message/NewMessageHeader";
 import VideoCall from "../components/Message/VideoCall";
 import ConnectedDevice from "../screen/ConnectedDevice";
 import ConnectedDeviceHeader from "../components/ConnectedDeviceHeader";
+import OtherUserDetail from "../screen/OtherUserDatail";
+import OtherUserHeader from "../components/OtherUserHeader";
+import OtherUserPhoto from "../components/OtherUserPhoto";
 
 const SettingsStack = createNativeStackNavigator();
 
@@ -250,6 +253,20 @@ export default function MainNavigator() {
           }}
         />
         <Stack.Screen name="VideoCall" component={VideoCall} options={{ headerShown: false }} />
+        <Stack.Screen
+          name="OtherUserDatail"
+          component={OtherUserDetail}
+          options={{
+            header: (props) => <OtherUserHeader {...props} />,
+          }}
+        />
+        <Stack.Screen
+          name="OtherUserPhoto"
+          component={OtherUserPhoto}
+          options={{
+            header: (props) => <OtherUserHeader {...props} />,
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

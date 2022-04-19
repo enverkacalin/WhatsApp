@@ -21,17 +21,22 @@ const ChatHeader = ({ route, navigation }) => {
           <AntDesign name="left" size={24} color="#007AFF" />
         </TouchableOpacity>
         <View style={{ flexDirection: "row", alignItems: "center", flex: 1 }}>
-          <Image
-            source={
-              item.otherUser.profilePhoto
-                ? item.otherUser.profilePhoto
-                : require("../../assets/image/user.png")
-            }
-            style={{ height: 35, width: 35, borderRadius: 35, marginLeft: 34 }}
-          />
-          <Text style={{ fontSize: 20, paddingLeft: 10, color: "white", fontWeight: "600" }}>
-            {item.otherUser.userName}
-          </Text>
+          <TouchableOpacity onPress={() => navigation.navigate("OtherUserPhoto", { item: item })}>
+            <Image
+              source={
+                item.otherUser.profilePhoto
+                  ? item.otherUser.profilePhoto
+                  : require("../../assets/image/user.png")
+              }
+              style={{ height: 35, width: 35, borderRadius: 35, marginLeft: 34 }}
+            />
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={() => navigation.navigate("OtherUserDatail", { item: item })}>
+            <Text style={{ fontSize: 20, paddingLeft: 10, color: "white", fontWeight: "600" }}>
+              {item.otherUser.userName}
+            </Text>
+          </TouchableOpacity>
         </View>
 
         <View style={{ flexDirection: "row", alignItems: "center", paddingRight: 10 }}>

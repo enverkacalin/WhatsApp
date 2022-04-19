@@ -69,6 +69,7 @@ const MessageHome = ({ messageItem }) => {
         ListFooterComponent={MessageHomeHeader}
         keyExtractor={(_item, index) => index.toString()}
         renderItem={({ item }) => <Message item={item} />}
+        indicatorStyle="white"
       />
     </View>
   );
