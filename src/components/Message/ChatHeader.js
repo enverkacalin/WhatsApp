@@ -24,7 +24,7 @@ const ChatHeader = ({ route, navigation }) => {
           <Image
             source={
               item.otherUser.profilePhoto
-                ? { uri: item.otherUser.profilePhoto }
+                ? item.otherUser.profilePhoto
                 : require("../../assets/image/user.png")
             }
             style={{ height: 35, width: 35, borderRadius: 35, marginLeft: 34 }}

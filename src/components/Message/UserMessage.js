@@ -43,7 +43,7 @@ const UserMessage = ({ navigation }) => {
       </View>
       <FlatList
         data={DATA}
-        keyExtractor={(item) => item}
+        keyExtractor={(item) => item.id}
         ListHeaderComponent={ListHeader}
         renderItem={({ item }) => (
           <View>
@@ -56,18 +56,21 @@ const UserMessage = ({ navigation }) => {
                 })
               }>
               <View style={styles.textmessage}>
-                <Image source={require("../../assets/image/user.png")} style={styles.user} />
+                <Image
+                  source={
+                    item.otherUser.profilePhoto
+                      ? item.otherUser.profilePhoto
+                      : require("../../assets/image/user.png")
+                  }
+                  style={styles.user}
+                />
                 <View>
                   <View style={{ flexDirection: "row", alignItems: "center" }}>
                     <Text style={styles.name}>{item.otherUser.userName}</Text>
-                    <Text style={{ color: "#808080" }}>
-                      {item.messages[item.messages.length - 1].time}
-                    </Text>
+                    <Text style={{ color: "#808080" }}>{item.messages[0].time}</Text>
                   </View>
                   <View>
-                    <Text style={styles.message}>
-                      {item.messages[item.messages.length - 1].text}
-                    </Text>
+                    <Text style={styles.message}>{item.messages[0].text}</Text>
                   </View>
                 </View>
               </View>
@@ -87,6 +90,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     paddingLeft: 12,
     paddingTop: 8,
+    paddingBottom: 10,
   },
   groupmessage: {
     backgroundColor: "black",
@@ -95,6 +99,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingLeft: 10,
     paddingRight: 15,
+    paddingTop: 1,
     borderBottomWidth: 0.5,
     borderBottomColor: "#303030",
   },

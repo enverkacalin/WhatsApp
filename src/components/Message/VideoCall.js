@@ -6,11 +6,13 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Audio } from "expo-av";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 function VideoCall({ navigation, route }) {
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.front);
   const [sound, setSound] = useState();
+  const insets = useSafeAreaInsets();
   const { item } = route.params;
 
   async function playSound() {
@@ -57,7 +59,7 @@ function VideoCall({ navigation, route }) {
     <View style={styles.container}>
       <Camera style={{ flex: 1 }} type={type}>
         <View style={{ flex: 1, backgroundColor: "rgba(0,0,0, 0.5)" }}>
-          <View style={styles.textcontainer}>
+          <View style={[styles.textcontainer, { marginTop: insets.top }]}>
             <TouchableOpacity
               style={{ alignSelf: "flex-start", marginHorizontal: 10 }}
               onPress={() => {
@@ -67,7 +69,9 @@ function VideoCall({ navigation, route }) {
             </TouchableOpacity>
             <View style={{ alignSelf: "center" }}>
               <Text style={styles.call}>{item.otherUser.userName}</Text>
-              <Text style={{ color: "white", fontSize: 17 }}>+90 000 000 00 00 aranıyor...</Text>
+              <Text style={{ color: "white", fontSize: 17, fontStyle: "italic" }}>
+                +90 000 000 00 00 aranıyor...
+              </Text>
             </View>
           </View>
           <View
@@ -135,7 +139,8 @@ const styles = StyleSheet.create({
   textcontainer: {
     flexDirection: "column",
     flex: 1,
-    marginVertical: 40,
+    paddingTop: 10,
+    marginBottom: 40,
     marginRight: 20,
   },
   callhome: {

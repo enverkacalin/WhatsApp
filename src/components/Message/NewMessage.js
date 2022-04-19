@@ -71,7 +71,7 @@ const NewMessage = ({ navigation }) => {
       </View>
       <FlatList
         data={DATA}
-        keyExtractor={(item) => item}
+        keyExtractor={(item) => item.id}
         ListHeaderComponent={NewHeader}
         renderItem={({ item }) => (
           <View>
@@ -90,7 +90,14 @@ const NewMessage = ({ navigation }) => {
                   )
                 }>
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
-                  <Image source={require("../../assets/image/user.png")} style={styles.user} />
+                  <Image
+                    source={
+                      item.otherUser.profilePhoto
+                        ? item.otherUser.profilePhoto
+                        : require("../../assets/image/user.png")
+                    }
+                    style={styles.user}
+                  />
                   <View>
                     <Text style={styles.name}>{item.otherUser.userName}</Text>
                     <Text style={styles.case}>{item.otherUser.case}</Text>

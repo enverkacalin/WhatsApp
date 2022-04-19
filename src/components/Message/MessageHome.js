@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Alert, FlatList } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
@@ -61,17 +61,12 @@ const Message = ({ item }) => {
 };
 
 const MessageHome = ({ messageItem }) => {
-  const flatlistRef = useRef();
-
-  useEffect(() => {
-    flatlistRef.current.scrollToEnd({ animated: false });
-  }, [flatlistRef.current]);
   return (
-    <View style={{ flex: 1 }}>
+    <View>
       <FlatList
-        ref={flatlistRef}
+        inverted={true}
         data={messageItem.messages}
-        ListHeaderComponent={MessageHomeHeader}
+        ListFooterComponent={MessageHomeHeader}
         keyExtractor={(_item, index) => index.toString()}
         renderItem={({ item }) => <Message item={item} />}
       />
