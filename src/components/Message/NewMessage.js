@@ -4,6 +4,7 @@ import { SearchBar } from "react-native-elements";
 import { DATA } from "./Data";
 import { MaterialIcons } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
+import ContactsList from "./ContactsList";
 
 const NewSearch = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -70,9 +71,11 @@ const NewMessage = ({ navigation }) => {
         <NewSearch />
       </View>
       <FlatList
+        indicatorStyle="white"
         data={DATA}
         keyExtractor={(item) => item.id}
         ListHeaderComponent={NewHeader}
+        ListFooterComponent={ContactsList}
         renderItem={({ item }) => (
           <View>
             <View>
