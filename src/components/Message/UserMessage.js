@@ -12,14 +12,19 @@ import {
 import Line from "../Line";
 import { DATA } from "./Data";
 import Search from "../Search";
-import { Entypo } from "@expo/vector-icons";
+import { Entypo, Ionicons } from "@expo/vector-icons";
 
 const ListHeader = () => {
   return (
     <View>
       <View indicatorStyle="white">
         <Text style={styles.title}> Sohbetler</Text>
-        <Search title={"Ara"} />
+        <View style={styles.search}>
+          <Search title={"Ara"} />
+          <TouchableOpacity>
+            <Ionicons name="filter-outline" color={"#1e90ff"} size={20} />
+          </TouchableOpacity>
+        </View>
       </View>
       <View style={styles.groupmessage}>
         <Button title="Toplu Mesaj Listeleri" />
@@ -139,6 +144,10 @@ const styles = StyleSheet.create({
     color: "#808080",
     fontSize: 15,
     marginTop: 5,
+  },
+  search: {
+    flexDirection: "row",
+    alignItems: "center",
   },
 });
 

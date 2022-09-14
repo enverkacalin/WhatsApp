@@ -15,7 +15,13 @@ const Search = ({ title }) => {
           borderTopWidth: 0,
           borderRadius: 8,
         }}
-        inputContainerStyle={{ margin: 0, height: 33, borderRadius: 8, backgroundColor: "#202020" }}
+        inputContainerStyle={{
+          margin: 0,
+          height: 33,
+          width: 302,
+          borderRadius: 8,
+          backgroundColor: "#202020",
+        }}
         inputStyle={{ fontSize: 17, color: "#fff" }}
         searchIcon={{ size: 23 }}
         placeholder={title}
