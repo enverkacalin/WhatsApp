@@ -20,7 +20,7 @@ const ListHeader = () => {
       <View indicatorStyle="white">
         <Text style={styles.title}> Sohbetler</Text>
         <View style={styles.search}>
-          <Search title={"Ara"} />
+          <Search title={"Ara"} width={302} />
           <TouchableOpacity>
             <Ionicons name="filter-outline" color={"#1e90ff"} size={20} />
           </TouchableOpacity>

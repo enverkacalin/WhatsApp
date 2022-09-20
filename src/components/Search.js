@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { SearchBar } from "react-native-elements";
 
-const Search = ({ title }) => {
+const Search = ({ title, ...props }) => {
   const [searchQuery, setSearchQuery] = useState("");
 
   return (
@@ -18,7 +18,7 @@ const Search = ({ title }) => {
         inputContainerStyle={{
           margin: 0,
           height: 33,
-          width: 302,
+          width: props.width,
           borderRadius: 8,
           backgroundColor: "#202020",
         }}

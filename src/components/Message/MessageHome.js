@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
   text: {
     width: 220,
     color: "white",
-    fontSize: 17,
+    fontSize: 16,
   },
 });
 
